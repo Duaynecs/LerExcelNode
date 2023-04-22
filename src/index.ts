@@ -1,18 +1,25 @@
 import * as XLSX from "xlsx";
 
+// importando arquivo
+const file = XLSX.readFile("Martins.xlsx");
 
-const arq = XLSX.readFile('../101-Grupos_Alimento_Básico-Martins.xlsx');
+// criando armazenamento dos dados
+let data: any = [];
 
-let dados: any = [];
+// vendo quatas abas tem na planilha
+const sheet = file.SheetNames;
 
-const aba = arq.SheetNames;
+// fazendo o loop das abas
+for (let i = 0; i < sheet.length; i++) {
+  // importando os dados das abas
+  const temp = XLSX.utils.sheet_to_json(file.Sheets[file.SheetNames[i]])
 
-for (let i = 0; i < aba.length; i++) {
-  const temp = XLSX.utils.sheet_to_json(arq.Sheets[arq.SheetNames[1]])
-
+  // fazendo o loop de linha a linha
   temp.forEach((res) => {
-    dados.push(res)
+    // adicionando o registo a variavel de armazenamento
+    data.push(res)
   })
 }
 
-console.log(dados);
+// mostrando na tela os dados
+console.log(data);
